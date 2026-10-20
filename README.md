@@ -1,24 +1,21 @@
 # Product Inventory Management System
 
-A Windows desktop app for tracking parts and the products built from them. Built in C# with Windows Forms on .NET Framework 4.8.
+# Built as a Software 1 Project for WGU
 
-## Features
+A Windows desktop application for inventory management where you can manage parts and the products built from them.
 
-- **Manage parts.** Add, modify, delete and search parts. Each part is either:
-  - **In-House**, made internally and tracked by a Machine ID, or
-  - **Outsourced**, bought from a vendor and tracked by Company Name.
-- **Manage products.** Add, modify, delete and search products, and pick which parts each product is made from.
-- **Search** by name (partial, case-insensitive) or by exact ID.
-- **Input validation** with clear error messages:
-  - Name is required, and price and stock values must be numbers.
+## Application Features
+
+- **Managing Parts** You can add, modify, delete and search parts. There are two different types of parts.
+  - **In-House**, These are made internally
+  - **Outsourced**, Purchased from a vendor and tracked by adding a company name.
+- **Manage products.** The ability to add, update, delete and search for products.
+- **Search by Name** partial, case-insensitive or by ID.
+- **Input validation** with error messages:
+  - Name is a requirement, price and stock values must be numbers.
   - Min must be less than or equal to Max.
-  - Inventory must fall between Min and Max.
-  - A product's price can't be less than the total price of its parts.
-- **Data safety rules**
-  - A part can't be deleted while a product still uses it.
-  - A product can't be deleted while it still has parts attached.
-  - Every delete asks for confirmation.
-- **Automatic IDs** for new parts and products.
+  - Inventory needs to be between Min and Max.
+  - A product's price can't be less than the total amount of its parts.
 
 ## Design
 
@@ -30,29 +27,18 @@ InventoryManagementSystem/
 │   ├── Outsourced.cs    Part subclass that adds CompanyName
 │   ├── Product.cs       Product with its list of associated parts
 │   └── Inventory.cs     Static store for all parts and products
-├── MainForm.cs          Main screen with the parts and products grids
-├── AddPartForm.cs       Add / modify part dialogs
+├── MainForm.cs          Main screen displays parts and products grids.
+├── AddPartForm.cs       Add / modify parts (dialog box)
 ├── ModifyPartForm..cs
-├── AddProductForm.cs    Add / modify product dialogs
+├── AddProductForm.cs    Add / modify product (dialog box)
 ├── ModifyProductForm.cs
-└── Program.cs           Entry point
+└── Program.cs           Entry point of application
 ```
 
-Key concepts:
 
-- **Inheritance and polymorphism.** `Part` is abstract. `Inhouse` and `Outsourced` extend it, so both kinds of part live in one list.
-- **Data binding.** The grids are bound to `BindingList<T>` collections, so changes show up in the UI right away without manual refreshing.
-- **Single source of truth.** The static `Inventory` class holds all parts and products, and every form reads from and writes to it.
+- **Data binding.** The grids are bound to `BindingList<T>` collections, When changes are made it shows up immedietly in the UI without a refresh.
+- **Inventory class** The static `Inventory` class has all parts and products.  All the forms are able to read and write from it.
+- **Data Storage** Data is used with in memory while the app runs and will not save between different sessions.
 
-Data is held in memory while the app runs and is not saved between sessions.
 
-## Running it
 
-**Requirements:** Windows and Visual Studio 2019 or later, with the **.NET desktop development** workload installed.
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/aLLmentaLx/product-inventory.git
-   ```
-2. Open `InventoryManagementSystem.sln` in Visual Studio.
-3. Press **F5** to build and run.
